@@ -65,6 +65,11 @@ namespace InfoOverload
             return oldValue*(1-smoothFactor)+newValue*smoothFactor;
         }
 
+        private static double SmoothedValue1(double oldValue, double newValue, double smoothFactor=0.1d)
+        {
+            return oldValue*(1-smoothFactor)+newValue*smoothFactor;
+        }
+
         public static Readout RocketInfo() => new Readout
         (
             "Rocket Info",
@@ -78,10 +83,10 @@ namespace InfoOverload
                     readout.CreateVariable("lastAngularVelocity", 0f);
                     readout.CreateVariable("angularAcceleration", 0f);
                     float angularAccelleration = SmoothedValue( (float)readout.vars["angularAcceleration"],(rocket.rb2d.angularVelocity- (float)readout.vars["lastAngularVelocity"]));
-                    readout.CreateVariable("lastvelocity", 0f);
-                    readout.CreateVariable("velocityAcceleration", 0f);
-                    float velocity = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
-                    float velocityAccelleration = SmoothedValue((float)readout.vars["velocityAcceleration"], ((float)velocity - (float)readout.vars["lastvelocity"]));
+                    readout.CreateVariable("lastvelocity", 0d);
+                    readout.CreateVariable("velocityAcceleration", 0d);
+                    double velocity = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
+                    double velocityAccelleration = SmoothedValue1((double)readout.vars["velocityAcceleration"], ((double)velocity - (double)readout.vars["lastvelocity"]));
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
                     readout.vars["velocityAcceleration"] = velocityAccelleration;
@@ -96,7 +101,7 @@ namespace InfoOverload
                     info += "\n• Angular velocity: " + rocket.rb2d.angularVelocity.ToString(4, true)+"°/s";
                     info += "\n• Angular Acceleration: " +angularAccelleration.ToString(4, true)+"°/s^2";
                     info += "\n• Torque: " +torque.ToString(4, true)+"°t/s^2";
-                    info += "\n• Current Acceleration: " + velocityAccelleration.ToString(2, true) + "°/s^2";
+                    info += "\n• Current Acceleration: " + velocityAccelleration.ToVelocityString(doubleDecimal: true);
 
                     if (rocket.rb2d.mass>0.1f)
                         info += "\n• Torque/mass: " + (torque/mass).ToString(4, true)+"°/s^2";
