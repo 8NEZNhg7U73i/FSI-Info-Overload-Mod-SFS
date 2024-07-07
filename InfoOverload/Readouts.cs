@@ -78,8 +78,14 @@ namespace InfoOverload
                     readout.CreateVariable("lastAngularVelocity", 0f);
                     readout.CreateVariable("angularAcceleration", 0f);
                     float angularAccelleration = SmoothedValue( (float)readout.vars["angularAcceleration"],(rocket.rb2d.angularVelocity- (float)readout.vars["lastAngularVelocity"]));
+                    readout.CreateVariable("lastvelocity", 0f);
+                    readout.CreateVariable("velocityAcceleration", 0f);
+                    float velocity = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
+                    float velocityAccelleration = SmoothedValue((float)readout.vars["velocityAcceleration"], ((float)velocity - (float)readout.vars["lastvelocity"]));
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
+                    readout.vars["velocityAcceleration"] = velocityAccelleration;
+                    readout.vars["lastvelocity"] = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
 
                     float thrust = rocket.partHolder.GetModules<EngineModule>().Sum((EngineModule a) => a.thrust.Value * a.throttle_Out.Value) + rocket.partHolder.GetModules<BoosterModule>().Sum((BoosterModule b) => b.thrustVector.Value.magnitude * b.throttle_Out.Value);
                     float torque=GetTorque(rocket);
@@ -90,6 +96,7 @@ namespace InfoOverload
                     info += "\n• Angular velocity: " + rocket.rb2d.angularVelocity.ToString(4, true)+"°/s";
                     info += "\n• Angular Acceleration: " +angularAccelleration.ToString(4, true)+"°/s^2";
                     info += "\n• Torque: " +torque.ToString(4, true)+"°t/s^2";
+                    info += "\n• Current Acceleration: " + velocityAccelleration.ToString(2, true) + "°/s^2";
 
                     if (rocket.rb2d.mass>0.1f)
                         info += "\n• Torque/mass: " + (torque/mass).ToString(4, true)+"°/s^2";
