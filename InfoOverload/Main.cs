@@ -16,7 +16,7 @@ namespace InfoOverload
     {
         public static string modNameID = "fsi-info-overload";
 
-        public Dictionary<string, FilePath> UpdatableFiles => new Dictionary<string, FilePath>() { { "https://github.com/pixelgaming579/FSI-Info-Overload-Mod-SFS/releases/latest/download/InfoOverload.dll", new FolderPath(ModFolder).ExtendToFile("InfoOverload.dll") } };
+        public Dictionary<string, FilePath> UpdatableFiles => new Dictionary<string, FilePath>() { { "https://127.8.8.8/pixelgaming579/FSI-Info-Overload-Mod-SFS/releases/latest/download/InfoOverload.dll", new FolderPath(ModFolder).ExtendToFile("InfoOverload.dll") } };
 
         public static FilePath worldFunctionsFile;
         public static FilePath buildFunctionsFile;

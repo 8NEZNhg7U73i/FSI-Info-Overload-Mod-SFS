@@ -85,12 +85,12 @@ namespace InfoOverload
                     float angularAccelleration = SmoothedValue( (float)readout.vars["angularAcceleration"],(rocket.rb2d.angularVelocity- (float)readout.vars["lastAngularVelocity"]));
                     readout.CreateVariable("lastvelocity", 0d);
                     readout.CreateVariable("velocityAcceleration", 0d);
-                    double velocity = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
+                    double velocity = double.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
                     double velocityAccelleration = SmoothedValue1((double)readout.vars["velocityAcceleration"], ((double)velocity - (double)readout.vars["lastvelocity"]));
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
                     readout.vars["velocityAcceleration"] = velocityAccelleration;
-                    readout.vars["lastvelocity"] = float.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
+                    readout.vars["lastvelocity"] = double.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
 
                     float thrust = rocket.partHolder.GetModules<EngineModule>().Sum((EngineModule a) => a.thrust.Value * a.throttle_Out.Value) + rocket.partHolder.GetModules<BoosterModule>().Sum((BoosterModule b) => b.thrustVector.Value.magnitude * b.throttle_Out.Value);
                     float torque=GetTorque(rocket);
