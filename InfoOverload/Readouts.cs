@@ -102,10 +102,7 @@ namespace InfoOverload
                     info += "\n• Angular Acceleration: " +angularAccelleration.ToString(4, true)+"°/s^2";
                     info += "\n• Torque: " +torque.ToString(4, true)+"°t/s^2";
                     info += "\n• Current Acceleration: " + velocityAccelleration.ToVelocityString(doubleDecimal: true);
-                    info += "\n• velocity: "+ rocket.rb2d.velocity.sqrMagnitude;
-                    info += "\n• velocity1: "+ rocket.rb2d.velocity.magnitude;
-                    info += "\n• velocity2: "+ rocket.rb2d.GetRelativePointVelocity(rocket.rb2d.velocity);
-
+                    info += "\n• velocity: " + location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
 
 
                     if (rocket.rb2d.mass>0.1f)
