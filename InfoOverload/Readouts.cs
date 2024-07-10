@@ -90,7 +90,7 @@ namespace InfoOverload
                     double velocityAcceleration = ;
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
-                    readout.vars["velocityAcceleration"] = velocityAccelleration;
+                    readout.vars["velocityAcceleration"] = velocityAcceleration;
                     readout.vars["lastvelocity"] = location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
 
                     float thrust = rocket.partHolder.GetModules<EngineModule>().Sum((EngineModule a) => a.thrust.Value * a.throttle_Out.Value) + rocket.partHolder.GetModules<BoosterModule>().Sum((BoosterModule b) => b.thrustVector.Value.magnitude * b.throttle_Out.Value);
