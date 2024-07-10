@@ -9,6 +9,7 @@ using SFS.Parts.Modules;
 using SFS.Translations;
 using System.Linq;
 using System.Collections.Generic;
+using SFS.Variables;
 
 namespace InfoOverload
 {
@@ -85,12 +86,12 @@ namespace InfoOverload
                     float angularAccelleration = SmoothedValue( (float)readout.vars["angularAcceleration"],(rocket.rb2d.angularVelocity- (float)readout.vars["lastAngularVelocity"]));
                     readout.CreateVariable("lastvelocity", 0d);
                     readout.CreateVariable("velocityAcceleration", 0d);
-                    double velocity = double.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
-                    double velocityAccelleration = SmoothedValue1((double)readout.vars["velocityAcceleration"], ((double)velocity - (double)readout.vars["lastvelocity"]));
+                    double velocity = location.velocity.magnitude;
+                    double velocityAcceleration = ;
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
                     readout.vars["velocityAcceleration"] = velocityAccelleration;
-                    readout.vars["lastvelocity"] = double.Parse(rocket.rb2d.velocity.sqrMagnitude.ToString());
+                    readout.vars["lastvelocity"] = location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
 
                     float thrust = rocket.partHolder.GetModules<EngineModule>().Sum((EngineModule a) => a.thrust.Value * a.throttle_Out.Value) + rocket.partHolder.GetModules<BoosterModule>().Sum((BoosterModule b) => b.thrustVector.Value.magnitude * b.throttle_Out.Value);
                     float torque=GetTorque(rocket);
@@ -101,7 +102,7 @@ namespace InfoOverload
                     info += "\n• Angular velocity: " + rocket.rb2d.angularVelocity.ToString(4, true)+"°/s";
                     info += "\n• Angular Acceleration: " +angularAccelleration.ToString(4, true)+"°/s^2";
                     info += "\n• Torque: " +torque.ToString(4, true)+"°t/s^2";
-                    info += "\n• Current Acceleration: " + velocityAccelleration.ToVelocityString(doubleDecimal: true);
+                    info += "\n• Current Acceleration: " + velocityAcceleration.ToVelocityString(doubleDecimal: true);
                     info += "\n• velocity: " + location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
 
 
