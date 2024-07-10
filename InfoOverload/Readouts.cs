@@ -209,7 +209,7 @@ namespace InfoOverload
                     info += "\n• Radius: " + location.planet.Radius.ToDistanceString();
                     info += "\n• Max terrain height: " + location.planet.maxTerrainHeight.ToDistanceString();
                     info += "\n• SoI radius: " + location.planet.SOI.ToDistanceString();
-                    // info += "\n• " + ((float)location.planet.mass).ToMassString(false);
+                    info += "\n• planet.mass: " + ((float)location.planet.mass).ToMassString(true);
                     return (true, info);
                 }
                 else
