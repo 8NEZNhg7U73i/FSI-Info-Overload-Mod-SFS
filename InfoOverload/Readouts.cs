@@ -286,6 +286,8 @@ namespace InfoOverload
                 {
                     readout.vars["fps"] = (float)readout.vars["elapsedTime"] / (int)readout.vars["frames"];
                     readout.vars["fpsPhysics"] = (float)readout.vars["elapsedTimePhysics"] / (int)readout.vars["frames"];
+                    readout.vars["unscaledDeltaTime"] = (float)Time.unscaledDeltaTime;
+                    readout.vars["fixedUnscaledDeltaTime"] = (float)Time.fixedUnscaledDeltaTime;
                     readout.vars["frames"] = 0;
                     readout.vars["elapsedTime"] = 0f;
                     readout.vars["elapsedTimePhysics"] = 0f;
@@ -296,6 +298,8 @@ namespace InfoOverload
                 info += GameManager.main != null ? ("\n• No. rockets (L/T): " + GameManager.main.rockets.Count(r => r.physics.loader.Loaded) + "/" + GameManager.main.rockets.Count()) : "";
                 info += "\n• FPS: " + ((float)readout.vars["fps"]).ToString(2, true);
                 info += GameManager.main != null ? ("\n• Physics FPS: " + ((float)readout.vars["fpsPhysics"]).ToString(2, true)) : "";
+                info += GameManager.main != null ? ("\n• unscaledDeltaTime: " + readout.vars["unscaledDeltaTime"]) : "";
+                info += GameManager.main != null ? ("\n• fixedUnscaledDeltaTime: " + readout.vars["fixedUnscaledDeltaTime"]) : "";
                 return (true, info);
             },
             new Dictionary<string, object>()
