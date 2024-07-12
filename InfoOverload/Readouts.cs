@@ -85,23 +85,24 @@ namespace InfoOverload
                     readout.CreateVariable("angularAcceleration", 0f);
                     float angularAccelleration = SmoothedValue( (float)readout.vars["angularAcceleration"],(rocket.rb2d.angularVelocity- (float)readout.vars["lastAngularVelocity"]));
                     readout.CreateVariable("lastvelocity", 0d);
-                    readout.CreateVariable("velocityAcceleration", 0d);
+                    readout.CreateVariable("lastvelocityAcceleration", 0d);
                     double velocity = location.velocity.magnitude;
-                    double velocityAcceleration = ;
+                    double velocityAcceleration = ((double)velocity - (double)readout.vars["lastvelocity"] ) / ((double)Time.fixedUnscaledDeltaTime);
+                    double velocityAccelleration = SmoothedValue1(readout.vars["lastvelocityAcceleration"], velocityAcceleration);
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
-                    readout.vars["velocityAcceleration"] = velocityAcceleration;
-                    readout.vars["lastvelocity"] = location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
+                    readout.vars["lastvelocityAcceleration"] = velocityAcceleration;
 
                     float thrust = rocket.partHolder.GetModules<EngineModule>().Sum((EngineModule a) => a.thrust.Value * a.throttle_Out.Value) + rocket.partHolder.GetModules<BoosterModule>().Sum((BoosterModule b) => b.thrustVector.Value.magnitude * b.throttle_Out.Value);
                     float torque=GetTorque(rocket);
                     info += "\n• Name: " + (rocket.rocketName != "" ? rocket.rocketName : Loc.main.Default_Rocket_Name);
                     info += "\n• Local thrust/weight: " + (thrust / (rocket.location.Value.planet.GetGravity(location.Radius) * rocket.mass.GetMass() / 9.8)).ToString(2, true);
+                    info += "\n• Thrust acceleration: " = (thrust / rocket.mass.GetMass()).ToMassString;
                     info += "\n• Global rotation: " + NormaliseAngle(rocket.rb2d.rotation).ToString(4, true)+"°";
                     info += "\n• Angular velocity: " + rocket.rb2d.angularVelocity.ToString(4, true)+"°/s";
                     info += "\n• Angular Acceleration: " +angularAccelleration.ToString(4, true)+"°/s^2";
                     info += "\n• Torque: " +torque.ToString(4, true)+"°t/s^2";
-                    info += "\n• Current Acceleration: " + velocityAcceleration.ToVelocityString(doubleDecimal: true);
+                    info += "\n• Current Acceleration: " + velocityAccelleration.ToVelocityString(doubleDecimal: true);
                     info += "\n• velocity: " + location.velocity.magnitude.ToVelocityString(doubleDecimal:true);
 
 
@@ -227,7 +228,7 @@ namespace InfoOverload
                 {
                     if (rocket.location.Value.planet.HasAtmospherePhysics)
                     {
-                        info += "\n• Current density: " + rocket.location.Value.planet.GetAtmosphericDensity(rocket.location.Value.Height).ToString(6, false);
+                        info += "\n• Current density: " + rocket.location.Value.planet.GetAtmosphericDensity(rocket.location.Value.Height);
                         info += "\n• Height: " + rocket.location.Value.planet.data.atmospherePhysics.height.ToDistanceString();
                         if (!readout.GetSetting<bool>("Hide Parachute Info"))
                         {
