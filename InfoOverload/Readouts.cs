@@ -112,6 +112,18 @@ namespace InfoOverload
 
                     //~ info += "\n• Est stopping angle:"+ rocket.rb2d.angularVelocity* rocket.rb2d.angularVelocity*mass* Time.fixedDeltaTime/(torque*2);
                     info += "\n• Other height" + ((!(location.TerrainHeight < 2000.0) && !(location.Height < 500.0)) ? (" (Terrain): " + location.TerrainHeight.ToDistanceString(true)) : (": " + location.Height.ToDistanceString(true)));
+                    info += "\n• deltaTime: " + Time.deltaTime;
+                    info += "\n• fixedDeltaTime: " + Time.fixedDeltaTime;
+                    info += "\n• fixedUnscaledDeltaTime: " + Time.fixedUnscaledDeltaTime;
+                    info += "\n• maximumDeltaTime: " + Time.maximumDeltaTime;
+                    info += "\n• maximumParticleDeltaTime: " + Time.maximumParticleDeltaTime;
+                    info += "\n• smoothDeltaTime: " + Time.smoothDeltaTime;
+                    info += "\n• unscaledDeltaTime: " + Time.unscaledDeltaTime;
+                    info += "\n• timeScale: " + Time.timeScale;
+                    info += "\n• timewarpSpeed: " + WorldTime.main.timewarpSpeed;
+                    info += "\n• TimeScale: " + WorldTime.main.TimeScale;
+
+
                     return (true, info);
                 }
                 else
