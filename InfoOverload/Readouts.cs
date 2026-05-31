@@ -87,7 +87,7 @@ namespace InfoOverload
                     readout.CreateVariable("lastvelocity", 0d);
                     readout.CreateVariable("lastvelocityAcceleration", 0d);
                     double velocity = location.velocity.magnitude;
-                    double velocityAcceleration = ((double)velocity - (double)readout.vars["lastvelocity"] ) / ((double)Time.fixedUnscaledDeltaTime) / (double)WorldTime.main.TimeScale;
+                    double velocityAcceleration = ((double)velocity - (double)readout.vars["lastvelocity"] ) / ((double)Time.unscaledDeltaTime) / (double)WorldTime.main.timewarpSpeed;
                     double velocityAccelleration = SmoothedValue1((double)readout.vars["lastvelocityAcceleration"], velocityAcceleration);
                     readout.vars["angularAcceleration"] = angularAccelleration;
                     readout.vars["lastAngularVelocity"] = rocket.rb2d.angularVelocity;
